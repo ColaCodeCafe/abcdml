@@ -1,0 +1,8 @@
+# 定义一个页面
+MyFirstPage: 
+  # params: empty
+  props: 
+    name: `My First Page`
+  artboard:
+    - layer: 
+        <Loop>

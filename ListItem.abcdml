@@ -1,0 +1,58 @@
+# 定义一个组件
+ListItem: 
+  params: 
+    width: number = 100pw
+    height: nubmer = 60px
+    bgColor: string = &EDFDFD
+    title: string
+    author: string
+    time: string
+  props: empty
+  artboard:
+    - layer: 
+        width: $width
+        height: $height
+        backgroungcolor: $bgColor
+        - Lable:
+            width: 100pw
+            lineheight: 30px
+            text: $title
+        + PropsGroup:
+            props: empty
+            layer: 
+              width: 100pw
+              height:> FUNC.SUBTRACT($height, 30px)
+              - Lable:
+                  width: 100pw
+                  lineheight: > FUNC.SUBTRACT($height, 30px)
+                  text: $author
+              - Lable:
+                  width: 100pw
+                  positon: right
+                  lineheight: > FUNC.SUBTRACT($height, 30px)
+                  text: $time
+
+# 实现一个组件
+# 实现组件不能使用params关键字
+ShowMore:> 
+  props: 
+    name: `Show More Button`
+  artboard: 
+    # 仅有一层的视图的组件可以不用列表模式
+    layer: 
+      width 100vw
+      height 50px
+      - Center: 
+          width 100pw
+          height 100ph
+          - Lable
+  
+
+# 定义一个页面
+MyFirstPage: 
+  # params: empty
+  props: 
+    name: `My First Page`
+  artboard:
+    - layer: 
+        <Loop>
