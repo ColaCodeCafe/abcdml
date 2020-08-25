@@ -1,0 +1,33 @@
+# 定义一个组件预设模块
+ListItem: 
+  # props: empty
+  receives: 
+    width: number = 100pw
+    height: nubmer = 60px
+    bgColor: string = &EDFDFD
+    title: string
+    author: string
+    time: string
+  artboard:
+    - layer: 
+        width: $width
+        height: $height
+        backgroungcolor: $bgColor
+        - Lable:
+            width: 100pw
+            lineheight: 30px
+            text: $title
+        + PropsGroup:
+            props: empty
+            layer: 
+              width: 100pw
+              height:> STD.SUBTRACT($height, 30px)
+              - Lable:
+                  width: 100pw
+                  lineheight: > STD.SUBTRACT($height, 30px)
+                  text: $author
+              - Lable:
+                  width: 100pw
+                  positon: right
+                  lineheight: > STD.SUBTRACT($height, 30px)
+                  text: $time

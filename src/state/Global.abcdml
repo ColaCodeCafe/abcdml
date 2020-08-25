@@ -1,0 +1,26 @@
+Global: 
+  # 字符串
+  state1: 我的第一个ABCD应用
+  # 数字
+  state2: 0
+  state3: 1
+  # 布尔值
+  state4: 0
+  state5: YES
+  # 空值
+  state6: _
+  # 结构
+  state7:
+    prop1: 这是一条字符串
+    prop2: -1
+    prop3: 3.14
+    prop4: 1
+    prop5: NO
+    prop6: EMPTY
+  # 列表
+  state8:
+    - 这是第一段的第一句，
+    + 这是第一段的第二句，
+    + 这是第一段的第三句。
+    - 这是第二段的第一句，这是第二段的第二句。
+    - 这是第三段。

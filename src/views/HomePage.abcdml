@@ -1,0 +1,8 @@
+# 定义一个页面组件
+HomePage: 
+  rs: EMPTY
+  ps: 
+    name: `My First Page`
+  ab:
+    - layer: 
+        <Loop>

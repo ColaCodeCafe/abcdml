@@ -1,0 +1,19 @@
+App:
+  rs: EMPTY
+  ps:
+    name: @state1
+  ab: 
+    - Layer
+        type: Routes
+        - Route: 
+            path: /home
+            name: home
+            com: HomePage
+        - Route: 
+            path: /404
+            name: notFound
+            com； NotFound
+        - DefaultRoute:
+            route: home
+            # 在本示例中，上述配置等价于下面的配置
+            # to: /home

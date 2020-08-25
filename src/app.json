@@ -1,0 +1,10 @@
+{
+    "appname": "test-app",
+    "version": "alpha",
+    "main": "views/App.abcdml",
+    "global": "views/App.abcdml",
+    "config": {
+        "foo": "bar",
+        "test": true
+    }
+}

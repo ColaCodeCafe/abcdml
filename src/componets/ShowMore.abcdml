@@ -1,0 +1,16 @@
+# 实例化一个匿名组件
+# 实例化组件不能使用receives关键字
+# 实例化组件可以省略props关键字和artboart关键字，编译器会将含有属性名的属性编译为普通属性，
+# 将列表中的Layer元素（Layer组件及其派生组件的实例）分配给画板属性artboard， 并将列表并中的非Layer元素过滤掉
+showMore:> 
+  props: 
+    name: `Show More Button`
+  artboard: 
+    # 仅有一层的视图的组件可以不用列表模式
+    layer: 
+      width 100vw
+      height 50px
+      - Center: 
+          width 100pw
+          height 100ph
+          - Lable
