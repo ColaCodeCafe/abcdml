@@ -2,13 +2,13 @@
 
 ## Introduction
 
-这是一份关于ABCDML（Abstract Coded Designing Markup Language，作为这么技术的代称时亦可简写为A4L） Alpha的标准草案。ABCDML Alpha是一个完全处于全新设计中的版本，没有兼容性问题，这使得本案所有内容都不具有稳定性。
+这是一份关于ABCDML(Abstract Coded Designing Markup Language，作为这项技术和生态的总称时亦可简写为A4L) Alpha的标准草案。ABCDML Alpha是一个完全处于全新设计中的版本，没有兼容性问题，这使得本案所有内容都不具有稳定性。
 
-ABCDML被设计为是一个主要面向非程序员的程序设计标记语言。它的侧重点在UI（User interface）布局，但允许使用者通过申明对辅助函数的调用来实现简单交互。
+ABCDML（作为程序设计语言本身时不进一步简写为A4L）被设计为是一个主要面向非程序员的程序设计标记语言。它的侧重点在UI（User interface）布局，但允许使用者通过申明对辅助函数的调用来实现简单交互。
 
 原则上，A4L不建议被用来开发功能复杂的、交互性极强的App，开发者应当把主要精力放在布局设计和基础交互设计上，而不要过多的考虑逻辑问题。标准库和官方框架以及社区会为开发者提供常用场景所需的交互逻辑组件和函数。考虑到极端情况，A4L保留了开发者使用自定义函数来强化应用功能的可行性，但这仍旧不是被建议的解决方案。本案的建议是，偏业务和偏业务的应用开发应当选择更适合它的开发语言。
 
-实际开发中，.abcdml文档主要是充当隐式源文件的作用，文件中的ABCDML（作为语言本身时不简写）内容主要用作开发的中间数据和存储数据，开发者真正面对的是集成开发工具的可视化界面。这是出于对开发者的非程序员身份的考量。如非必要，开发者不需要真正的去编辑ABCDML。但一般而言，了解A4L的语法和思想，有助于开发、调试你的A4L应用程序。
+实际开发中，`.abcdml`文档主要是充当隐式源文件的作用，文件中的ABCDML内容主要用作开发的中间数据和存储数据，开发者真正面对的是集成开发工具的可视化界面。这是出于对开发者的非程序员身份的考量。如非必要，开发者不需要真正的去编辑ABCDML。但一般而言，了解A4L的语法和思想，有助于开发、调试你的A4L应用程序。
 
 ## 1. Scoop
 
@@ -98,7 +98,9 @@ A4L有标量、实体和回调函数三种基本类型。
 
 ##### 3.2.2.1. 静态元素
 
-### 3.3. 回调函数
+### 3.3. 类型修饰符
+
+### 3.4. 回调函数
 
 ## 4. Component Declaration
 
@@ -121,10 +123,27 @@ A4L有标量、实体和回调函数三种基本类型。
 ### 4.4. 组件的继承
 
 #### 4.4.1. 终组件
-终组件不可被继承。
+终组件不可被继承，只能用于被实例化为元素。
+终组件都是内建组件，用户组件都可被实例化和继承。
 
-#### 4.4.2. 类组件
-类组件不是真的组件，不可直接被实例化，但是可被继承。
+#### 4.4.2. 模板组件
+模板组件不是真的组件，不可直接被实例化，但是可被继承。
+模板组件都是内建组件，用户组件都可被实例化和继承。
+
+##### 4.4.2.1. 祖组件
+*祖组件不是规范的必要部分，目标框架和运行时框架应视自身情况来选择是否实现它*
+
+理论上，祖组件是所有组件的源头，实际上只要能保证各模板组件的实现符合本案即可。
+
+##### 4.4.2.2. 通用模板组件
+通用模板组件是所有不指定父组件的用户组件的父组件。
+
+##### 4.4.2.3. 私有模板组件
+私有模板组件是内建组件的模板，既不可被实例化，也不可被继承。
+
+##### 4.4.2.4. 模板组件清单
+本清单将列出所有模板组件及其接口、属性和实现需求。
+模板组件不需要被实例化的特性使其完全是实现层的事情，故而不需要列出其定义语句。
 
 ## 5. Component Instantiation
 
@@ -151,128 +170,198 @@ A4L有标量、实体和回调函数三种基本类型。
 
 ```abcdml
 Layer:
-  rs: 
+  <<: 
     type: { Flow | Coords | Flex | Routes } = Flow
     direction: {} = horizontal
     base: { left-top | right-top | left-top | left-top} = left-top
     []: [ViewComponet]
+  []: [Internal Implement]
 ```
 
 ### 6.2. 编组组件
+编组组件是个伪组件
 
 ```abcdml
 Group: 
-  rs:
+  <<:
+    name: id
     []: [ViewComponet]
+  []: [Internal Implement]
 ```
 
 ### 6.3. 居中组件
 
 ```abcdml
-Center:
-  rs:
+# BuiltInComponent是私有
+Center<BuiltInComponent>:
+  <<:
+    name: id
     child: ViewComponet
+  {}: 
+    classname: bic-container-center
+  []: 
+    - $child
 ```
 
 ## 7. Resource Components
 
-### 7.1. 媒体资源
+### 7.1. 媒体资源组件
 
-#### 7.1.1. 图片资源
+#### 7.1.1. 图片资源组件
 
 ```abcdml
 Image:
-  rs:
+  <<:
     width: number
     height: number
-    placeholder-file: string<types.FILENAME>
-    src: string<types.URL>
-  on:
-    load: callback = EMPTY
-    error: callback = EMPTY
+    placeholder-file: text<types.FILENAME>
+    src: text<types.URL>
+    onload: callback = EMPTY
+    onerror: callback = EMPTY
+  >>:
+    load: $onload
+    error: $onerror
+  []: [Internal Implement]
 ```
+
+#### 7.1.2. 音频资源组件
+
+#### 7.1.3. 视频资源组件
+
+### 7.2. 网络资源组件
+
+#### 7.2.1 XML资源解析组件
+
+#### 7.2.2 JSON资源解析组件
+
+#### 7.2.4 远程文件组件
+
+### 7.3. 数据映射组件
+
+#### 7.3.1. 数据表的定义
+
+### 7.3. 数据映射组件
+
+#### 7.3.1. 数据表的定义
+
+#### 7.4. RESTful JSON资源映射组件
 
 ## 8. Branches And Loops
 
 ### 8.1. 分支组件
 
-### 8.1.1. 按条件渲染组件
+#### 8.1.1. 按条件渲染组件
 
 ```abcdml
 ?:
-  rs:
+  <<:
     if: [boolean]
     then: ViewComponet
     else:
 ```
 
-#### 8.1.2 按键名渲染组件
+#### 8.1.2. 按键名渲染组件
 
 ```abcdml
 ?:
-  rs:
-    # key 等价于 = { number | string }
+  <<:
+    # key 等价于 = { number | text }
     case: key
     # Cases 等价于 Map<key: ViewComponet>
     from: Cases
 ```
 
-#### 8.1.3 路由组件
+#### 8.1.3. 路由器组件
 
 ```abcdml
-Layer:
-  if:
-    type = Routes
-  rs:
+Router<RouterLike>:
+  <<:
+    []: [Route]
+```
+
+#### 8.1.3.1. 导航器组件
+是页面级的路由器组件
+
+```abcdml
+Navigator<RouterLike>:
+  <<:
     []: [Route]
 ```
 
 ### 8.2. 遍历与循环组件
 
 ```abcdml
-List:
-  rs:
-    range: Range => RangeFromTo()
+List<ListLike>:
+  <<:
+    range: Range => RangeFromTo(0, 11)
     []
 ```
 
 ## 9. Form And Inputs
 
-## 10. Constants
+## 10. Internationalization
 
-## 11. Internationalization
+## 11. Constants
 
-## 12. Assistant Function
+## 12. Assistant Function Overview
 
-### 12.1. fnd Document Overview
+### 12.1. 辅助函数定义
 
-### 12.2. 辅助函数定义
+### 12.2. .fnd Document
 
 ### 12.3. 函数库的发布
 
 ### 12.4. 私有函数库
 
-### 12.5. 内建标准函数
+## 13. Built-in Standard Assistant Functions
 
-#### 12.5.x. Range Generator
-1. Range Range.StartEnd(number start, number end, number step), 生成基于一个左闭右闭原则的区间
-2. Range Range.StartTo(number start, number to, number step), 生成基于一个左闭右开原则的区间
-3. Range Range.FromEnd(number from, number end, number step), 生成基于一个左开右闭原则的区间
-4. Range Range.FromTo(number from, number to, number step), 生成基于一个左开右开原则的区间
-5. Range Range.Use(Map list), 以列表为原型生成一个区间
-6. Range Range.KeysOf(Dict component), 以状态为原型生成一个键区间
-7. Range Range.ValsOf(Dict component), 以状态为原型生成一个值区间
+### 13.x. Range Generator
 
-## 13. Package Management
+#### 生成基于一个左闭右闭原则的区间
+Range Range.StartEnd(number start, number end, number  step = 1)
 
-## 14. Monitoring Module
+#### 生成基于一个左闭右开原则的区间
+Range Range.StartTo(number start, number to, number  step = 1)
+
+#### 生成基于一个左开右闭原则的区间
+Range Range.FromEnd(number from, number end, number step = 1)
+
+#### 生成基于一个左开右开原则的区间
+Range Range.FromTo(number from, number to, number step = 1)
+
+#### 以列表为原型生成一个区间
+Range Range.Use(Map list)
+
+#### 以状态为原型生成一个键区间
+Range Range.KeysOf(Dict component)
+
+#### 以状态为原型生成一个值区间
+Range Range.ValsOf(Dict component), 
+
+### 13.x. 数据映射组件与RESTful远程JSON资源映射组件的操作
+
+#### 增加记录
+
+#### 删除记录
+
+#### 修改记录
+
+##### 修改部分字段
+
+#### 查询记录
+
+##### 按条件查询列表
+
+## 14. Package Management
+
+## 15. Monitoring Module
 > 监控模块不是A4L必须实现的模块，它的生命周期可以和注释一样结束于ABCDML抽象语法树。而且即便要实现，只需要遵循的它输入输出接口协议来通讯即可，本案不定义它的视觉和交互体验。
 > 此章可能会被删除
 
-### 14.1. 监控模块的应用
+### 15.1. 监控模块的应用
 > 此章可能会被删除
 
-## 15. ABCDML AST
+## 16. ABCDML AST
 
 ## A. 符号表
 

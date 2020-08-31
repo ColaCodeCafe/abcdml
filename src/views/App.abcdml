@@ -1,10 +1,13 @@
 App:
-  rs: EMPTY
-  ps:
+  <<: 
+    onnotice: callback = EMPTY
+  {}:
     name: @state1
-  ab: 
-    - Layer
-        type: Routes
+  >>:
+    error: ->Log.Error(@event, AppError)
+    notice: $onnotice
+  []: 
+    - RoutesLayer
         - Route: 
             path: /home
             name: home
