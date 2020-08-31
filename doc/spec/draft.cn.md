@@ -66,11 +66,29 @@ A4L有标量、实体和回调函数三种基本类型。
 
 #### 3.1.3. 布尔值
 
-#### 3.1.4. 字符串
+#### 3.1.4. 文本
 
 #### 3.1.5. 标量子类型
 
-##### 3.1.5.1. 尺寸
+##### 3.1.5.1. 概率数
+
+##### 3.1.5.2. 两位有效概率数
+
+##### 3.1.5.3. 整数
+
+##### 3.1.5.4. 正整数
+
+##### 3.1.5.5. 序号/自然数
+
+##### 3.1.5.6. 尺寸值
+
+##### 3.1.5.7. 纯字符
+
+##### 3.1.5.8. 单词
+
+##### 3.1.5.9. 标识
+
+##### 3.1.5.10. 限制长度文本
 
 ### 3.2. 实体
 
@@ -80,56 +98,56 @@ A4L有标量、实体和回调函数三种基本类型。
 
 ##### 3.2.2.1. 静态元素
 
-### 回调函数
+### 3.3. 回调函数
 
 ## 4. Component Declaration
 
-### 命名规范
+### 4.1. 命名规范
 
-### 组件的静态属性
+### 4.2. 组件的静态属性
 
-#### 静态属性赋值
+#### 4.2.1. 静态属性赋值
 
-###### 静态集合属性赋值
+##### 4.2.1.1. 静态集合属性赋值
 
-###### 调用函数返回值进行赋值
+##### 4.2.1.2. 调用函数返回值进行赋值
 
-### 组件的动态属性
+### 4.3. 组件的动态属性
 
-#### 动态属性的定义
+#### 4.3.1. 动态属性的定义
 
-#### 隐式属性
+#### 4.3.2. 隐式属性
 
-### 组件的继承
+### 4.4. 组件的继承
 
-#### 终组件
+#### 4.4.1. 终组件
 终组件不可被继承。
 
-#### 类组件
+#### 4.4.2. 类组件
 类组件不是真的组件，不可直接被实例化，但是可被继承。
 
 ## 5. Component Instantiation
 
-### 实例参数赋值
+### 5.1. 实例参数赋值
 
-### 使用状态
+### 5.2. 读取状态
 
-#### 状态的作用域
+#### 5.2.1. 状态的作用域
 
-### 顶层组件实例化
+### 5.3. 顶层组件实例化
 每个A4L程序的顶层都只有两个组件，一个根元素组件，一个全局状态模型
 
-#### 根元素
+#### 5.3.1. 根元素
 应用组件
 
-#### 全局状态集
+#### 5.3.2. 全局状态集
 全局状态模型
 
-### 列表项元素实例化
+### 5.4. 列表项元素实例化
 
 ## 6. Containers
 
-### 图层组件
+### 6.1. 图层组件
 
 ```abcdml
 Layer:
@@ -140,7 +158,7 @@ Layer:
     []: [ViewComponet]
 ```
 
-### 编组组件
+### 6.2. 编组组件
 
 ```abcdml
 Group: 
@@ -148,7 +166,7 @@ Group:
     []: [ViewComponet]
 ```
 
-### 居中组件
+### 6.3. 居中组件
 
 ```abcdml
 Center:
@@ -158,9 +176,9 @@ Center:
 
 ## 7. Resource Components
 
-### 媒体资源
+### 7.1. 媒体资源
 
-#### 图片资源
+#### 7.1.1. 图片资源
 
 ```abcdml
 Image:
@@ -176,7 +194,9 @@ Image:
 
 ## 8. Branches And Loops
 
-### 条件组件
+### 8.1. 分支组件
+
+### 8.1.1. 按条件渲染组件
 
 ```abcdml
 ?:
@@ -186,9 +206,7 @@ Image:
     else:
 ```
 
-### 分支组件
-
-#### 按键渲染组件
+#### 8.1.2 按键名渲染组件
 
 ```abcdml
 ?:
@@ -199,7 +217,7 @@ Image:
     from: Cases
 ```
 
-#### 路由组件
+#### 8.1.3 路由组件
 
 ```abcdml
 Layer:
@@ -209,7 +227,7 @@ Layer:
     []: [Route]
 ```
 
-### 遍历与循环组件
+### 8.2. 遍历与循环组件
 
 ```abcdml
 List:
@@ -217,14 +235,6 @@ List:
     range: Range => RangeFromTo()
     []
 ```
-共有7个生成Range的函数
-1. Range Range.StartEnd(number start, number end, number step), 生成基于一个左闭右闭原则的区间
-2. Range Range.StartTo(number start, number to, number step), 生成基于一个左闭右开原则的区间
-3. Range Range.FromEnd(number from, number end, number step), 生成基于一个左开右闭原则的区间
-4. Range Range.FromTo(number from, number to, number step), 生成基于一个左开右开原则的区间
-5. Range Range.Use(Map list), 以列表为原型生成一个区间
-6. Range Range.KeysOf(Dict component), 以状态为原型生成一个键区间
-7. Range Range.ValsOf(Dict component), 以状态为原型生成一个值区间
 
 ## 9. Form And Inputs
 
@@ -234,14 +244,24 @@ List:
 
 ## 12. Assistant Function
 
-### fnd Document Overview
+### 12.1. fnd Document Overview
 
-### 辅助函数定义
+### 12.2. 辅助函数定义
 
-### 函数库的发布
+### 12.3. 函数库的发布
 
-### 私有函数库
+### 12.4. 私有函数库
 
+### 12.5. 内建标准函数
+
+#### 12.5.x. Range Generator
+1. Range Range.StartEnd(number start, number end, number step), 生成基于一个左闭右闭原则的区间
+2. Range Range.StartTo(number start, number to, number step), 生成基于一个左闭右开原则的区间
+3. Range Range.FromEnd(number from, number end, number step), 生成基于一个左开右闭原则的区间
+4. Range Range.FromTo(number from, number to, number step), 生成基于一个左开右开原则的区间
+5. Range Range.Use(Map list), 以列表为原型生成一个区间
+6. Range Range.KeysOf(Dict component), 以状态为原型生成一个键区间
+7. Range Range.ValsOf(Dict component), 以状态为原型生成一个值区间
 
 ## 13. Package Management
 
@@ -249,13 +269,13 @@ List:
 > 监控模块不是A4L必须实现的模块，它的生命周期可以和注释一样结束于ABCDML抽象语法树。而且即便要实现，只需要遵循的它输入输出接口协议来通讯即可，本案不定义它的视觉和交互体验。
 > 此章可能会被删除
 
+### 14.1. 监控模块的应用
+> 此章可能会被删除
+
 ## 15. ABCDML AST
 
 ## A. 符号表
 
-### 监控模块的应用
-> 此章可能会被删除
-
 ## B. 开发工具设计建议
 
-### 官方集成开发工具特性清单
+### B.I. 官方集成开发工具特性清单
