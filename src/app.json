@@ -1,8 +1,8 @@
 {
     "appname": "test-app",
     "version": "alpha",
-    "main": "views/App.abcdml",
-    "global": "views/App.abcdml",
+    "main": "/App",
+    "global": "/state/Global",
     "config": {
         "foo": "bar",
         "test": true
