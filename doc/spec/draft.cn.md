@@ -317,16 +317,16 @@ List<ListLike>:
 
 ### 13.x. Range Generator
 
-#### 生成基于一个左闭右闭原则的区间
+#### 生成一个基于左闭右闭原则的区间
 Range Range.StartEnd(number start, number end, number  step = 1)
 
-#### 生成基于一个左闭右开原则的区间
+#### 生成一个基于左闭右开原则的区间
 Range Range.StartTo(number start, number to, number  step = 1)
 
-#### 生成基于一个左开右闭原则的区间
+#### 生成一个基于左开右闭原则的区间
 Range Range.FromEnd(number from, number end, number step = 1)
 
-#### 生成基于一个左开右开原则的区间
+#### 生成一个基于左开右开原则的区间
 Range Range.FromTo(number from, number to, number step = 1)
 
 #### 以列表为原型生成一个区间
@@ -335,7 +335,7 @@ Range Range.Use(Map list)
 #### 以状态为原型生成一个键区间
 Range Range.KeysOf(Dict component)
 
-#### 以状态为原型生成一个值区间
+#### 以状态集为原型生成一个值区间
 Range Range.ValsOf(Dict component), 
 
 ### 13.x. 数据映射组件与RESTful远程JSON资源映射组件的操作
