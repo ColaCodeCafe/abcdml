@@ -104,7 +104,7 @@ A4L有标量、实体和回调函数三种基本类型。
 
 ## 4. Constants
 
-## 5. Component Declaration
+## 5. ABCDML Syntax I - Component Declaration
 
 ### 5.1. 命名规范
 
@@ -143,7 +143,7 @@ A4L有标量、实体和回调函数三种基本类型。
 ##### 5.4.2.3. 私有抽象组件
 私有抽象组件是内建组件的模板，既不可被实例化，也不可被继承。
 
-## 6. Abstract Components List
+## 6. ABCDML Syntax II - Abstract Components List
 本清单将列出所有抽象组件及其接口、属性和实现需求。
 抽象组件不需要被实例化的特性使其完全是实现层的事情，故而不需要列出其定义语句。
 

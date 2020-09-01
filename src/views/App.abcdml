@@ -4,10 +4,11 @@ App:
   {}:
     name: @state1
   >>:
+    # 调用Log.Error函数来处理错误
     error: ->Log.Error(@event, AppError)
     notice: $onnotice
   []: 
-    - RoutesLayer
+    - Navigator:
         - Route: 
             path: /home
             name: home
@@ -20,3 +21,4 @@ App:
             route: home
             # 在本示例中，上述配置等价于下面的配置
             # to: /home
+    - #Monitor
