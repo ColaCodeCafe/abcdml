@@ -84,10 +84,10 @@ StateSet:
 
 SuperStateSet:
   {}:
-    set1:
+    set1{StateSet}:
       param1: EMPTY
 ```
-这里定义了另一个数据模型SuperStateSet，并定义了它的一个属性，这个属性是一个StateSet实例
+这里定义了另一个数据模型SuperStateSet，并定义了它的一个属性，这个属性是一个StateSet实例。
 
 ##### 3.1.1.1. Empty Object
 空项表示一个对象存在，但不给他填充属性和元素，在代码中用来表示完全集成父组件或继承父组件的画板。
