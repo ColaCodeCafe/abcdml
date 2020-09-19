@@ -8,7 +8,7 @@ ABCDML（作为程序设计语言本身时不进一步简写为A4L）被设计�
 
 原则上，A4L不建议被用来开发功能复杂的、交互性极强的App，开发者应当把主要精力放在布局设计和基础交互设计上，而不要过多的考虑逻辑问题。标准库和官方框架以及社区会为开发者提供常用场景所需的交互逻辑组件和函数。考虑到极端情况，A4L保留了开发者使用自定义函数来强化应用功能的可行性，但这仍旧不是被建议的解决方案。本案的建议是，偏计算和偏业务逻辑的应用开发应当被合理评估并选择更适合它的开发语言。
 
-在期望的实际开发中，`.abcdml`文档主要是充当隐式源文件的作用，文件中的ABCDML内容主要用作开发的中间数据和存储数据，开发者真正面对的是集成开发工具的可视化界面。这是出于对开发者的非程序员身份的考量。如非必要，开发者不需要真正的去编辑ABCDML。但一般而言，了解A4L的语法和思想，有助于开发、调试你的A4L应用程序。同时，完全用ABCDML编写A4L也是可行的，只是这需要强大的图形想象力。
+在期望的实际开发中，`.abc`文档主要是充当隐式源文件的作用，文件中的ABCDML内容主要用作开发的中间数据和存储数据，开发者真正面对的是集成开发工具的可视化界面。这是出于对开发者的非程序员身份的考量。如非必要，开发者不需要真正的去编辑ABCDML。但一般而言，了解A4L的语法和思想，有助于开发、调试你的A4L应用程序。同时，完全用ABCDML编写A4L也是可行的，只是这需要强大的图形想象力。
 
 ## 1. Scoop
 
@@ -36,7 +36,7 @@ A4L是一个面对组件的程序设计语言。A4L组件是A4L的基本单元�
 
 开发A4L主要就是合理的设计组件并将他们组织起来，而组织组件的形式其实是设计更高层的组件，归根结底设计A4L程序就是设计A4L的各层组件，也就是编写ABCDML文档。
 
-一个A4L组件的定义实体就是一个书写了一个ABCDML组件定义表达式的`.abcdml`文件，任何人可以使用任何文字编辑软件来编辑这个文件。
+一个A4L组件的定义实体就是一个书写了一个ABCDML组件定义表达式的`.abc`文件，任何人可以使用任何文字编辑软件来编辑这个文件。
 
 由于A4L主要面向于非程序员，更准确的说是面向UI设计师，所以A4L在设计之初就将可视化集成开发工具考虑进来，从词法和语法设计上就为集成工具的实现作了准备。这些包括但不限于方便开发工具做检查的标量子类型系统和便于开发工具作调试功能的监控模块。这些特性是运行环境可以忽略的特性，完全是设计用来开发和调试的。本案相关章节中提及的调试方案皆是适用于生产环境的调试方案，关于使用监控模块进行调试的介绍将在附录中说明。
 
@@ -71,7 +71,7 @@ A4L有标量、实体和回调函数三种基本类型，这一章将对他们�
 `EMPTY`即空值的值常量，他也有一个别名`NULL`，他们都表示一个并不实际存在的值。`NULL`的设计初衷是用来赋初值，表示默认为空，等待赋值；`EMPTY`则被设计用来赋实值，即最终计算得出的空值（准确的说，是计算没能得出值，所以值为空）。但这些只是为了增加代码的易读型，`NULL`和`EMPTY`在实际意义上完全等同。具体示例代码如下：
 
 ```abcdml
-# StateSet.abcdml
+# StateSet.abc
 
 StateSet:
   <<: 
@@ -80,7 +80,7 @@ StateSet:
 这里定义了一个数据模型StateSet，并申明了一个参数param1，它应当是一个文本，但允许为空。并且，它的初值便是空。
 
 ```abcdml
-# SuperStateSet.abcdml
+# SuperStateSet.abc
 
 SuperStateSet:
   {}:
@@ -97,7 +97,7 @@ SuperStateSet:
 空项在ABCDML文档使用符号连续双下划线`__`标记，这个符号也可称为`空项符`。下面的示例显示了一个组件完全继承另一个组件：
 
 ```abcdml
-# SubComponent.abcdml
+# SubComponent.abc
 
 SubComponent<SuperComponent>: __
 ```
@@ -177,7 +177,7 @@ SubComponent<SuperComponent>: __
 组件名使用大坨峰命名风格，写在文档的开始（不包含注释和空白），并以冒号`:`结束。下面是一个名为HelloWorld的组件：
 
 ```abcdml
-# src/HelloWorld.abcdml
+# src/HelloWorld.abc
 
 HelloWorld:
   {}:
@@ -194,7 +194,7 @@ HelloWorld:
 组件名前可以添加命名空间，这将使得复杂应用中可以出现同名组件，命名空间直接放在组件名前面，并以斜杠`/`隔开，如下所示便是带有命名空间的组件：
 
 ```abcdml
-# src/components/namespace_test/HelloWorld.abcdml
+# src/components/namespace_test/HelloWorld.abc
 
 namespace_test/HelloWorld:
   {}:
@@ -437,16 +437,16 @@ List<ListLike>:
 ### 15.x. Range Generator
 
 #### 生成一个基于左闭右闭原则的区间
-Range Range.StartEnd(number start, number end, number  step = 1)
+Range Range.StartEnd(int start, int end, int step = 1)
 
 #### 生成一个基于左闭右开原则的区间
-Range Range.StartTo(number start, number to, number  step = 1)
+Range Range.StartTo(int start, int to, int step = 1)
 
 #### 生成一个基于左开右闭原则的区间
-Range Range.FromEnd(number from, number end, number step = 1)
+Range Range.FromEnd(int from, int end, int step = 1)
 
 #### 生成一个基于左开右开原则的区间
-Range Range.FromTo(number from, number to, number step = 1)
+Range Range.FromTo(int from, int to, int step = 1)
 
 #### 以列表为原型生成一个区间
 Range Range.Use(Map list)
